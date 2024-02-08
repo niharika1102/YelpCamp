@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <meta charset = 'UTF-8' />
+
+        <meta name = 'viewport' content = 'width = device-width, initial-scale = 1.0' />
+
+        <link rel = 'icon' type = 'image/x-icon' href = '' >
+
+        <title>
+
+            Add new Campground
+
+        </title>
+
+    </head>
+
+    <body>
+
+        <h1>
+
+            Adding New Campground
+
+        </h1>
+
+        <form action='/campgrounds' method="post">
+
+            <label for="name">
+
+                Name of campground: 
+
+            </label>
+
+            <input type="text" placeholder="Enter name" id="name" name="campground[name]">
+
+            <br>
+
+            <label for="location">
+
+                Location of campground: 
+
+            </label>
+
+            <input type="text" placeholder="Enter location" id="location" name="campground[location]">
+
+            <br>
+
+            <button>
+
+                Submit
+
+            </button>
+
+        </form>
+
+        <a href='/campgrounds'>
+
+            Cancel
+
+        </a>
+
+    </body>
+
+</html>
