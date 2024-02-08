@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <meta charset = 'UTF-8' />
+
+        <meta name = 'viewport' content = 'width = device-width, initial-scale = 1.0' />
+
+        <link rel = 'icon' type = 'image/x-icon' href = '' >
+
+        <title>
+
+            Edit <%= camp.name%>
+
+        </title>
+
+    </head>
+
+    <body>
+
+        <h2>
+
+            Edit <%= camp.name%>
+
+        </h2>
+
+        <form action='/campgrounds/<%=camp._id%>/?_method=put' method="post">
+
+            <label for="name">
+
+                Name of campground: 
+
+            </label>
+
+            <input type="text" placeholder="Enter name" id="name" name="campground[name]" value = "<%=camp.name%>">
+
+            <br>
+
+            <label for="location">
+
+                Location of campground: 
+
+            </label>
+
+            <input type="text" placeholder="Enter location" id="location" name="campground[location]" value = "<%=camp.location%>">
+
+            <br>
+
+            <button>
+
+                Submit
+
+            </button>
+
+        </form>
+
+        <a href='/campgrounds'>
+
+            Cancel
+
+        </a>
+
+    </body>
+
+</html>

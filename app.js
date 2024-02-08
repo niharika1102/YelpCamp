@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
+const methodOverride = require('method-override');
 
 //Schema calling
 const Campground = require('./models/campground');
@@ -20,7 +21,10 @@ mongoose.connect('mongodb://localhost:27017/yelpCamp')
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('assets'));
+
+//Middleware setup
 app.use(express.urlencoded({extended:true}));
+app.use(methodOverride("_method"));
 
 
 app.get('/', (req, res) => {
@@ -50,6 +54,26 @@ app.get('/campgrounds/:id', async (req, res) => {
     const camp = await Campground.findById(req.params.id)
     res.render('campgrounds/show', { camp });
 });
+
+//Get form to update
+app.get('/campgrounds/:id/edit', async (req, res) => {
+    const camp = await Campground.findById(req.params.id)
+    res.render('campgrounds/edit', {camp});
+})
+
+//Put request to update campground
+app.put('/campgrounds/:id', async(req, res) => {
+    const {id} = req.params;
+    const camp = await Campground.findByIdAndUpdate(id, {...req.body.campground});        //...req.body.campground is used to use the updated data and save it into the database
+    res.redirect('/campgrounds');
+})
+
+//Delete a campground
+app.delete('/campgrounds/:id', async(req, res) => {
+    const {id} = req.params;
+    await Campground.findByIdAndDelete(id);
+    res.redirect('/campgrounds');
+})
 
 
 app.listen(3000, () => {
