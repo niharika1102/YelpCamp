@@ -1,65 +1,41 @@
-<!DOCTYPE html>
+<% layout('layouts/boilerplate') %>
 
-<html>
+    <h1>
 
-    <head>
+        <%= camp.name %>            
 
-        <meta charset = 'UTF-8' />
+    </h1>
 
-        <meta name = 'viewport' content = 'width = device-width, initial-scale = 1.0' />
+    <a href='/campgrounds'>
 
-        <link rel = 'icon' type = 'image/x-icon' href = '' >
+        View all campgrounds
 
-        <title>
+    </a>
 
-            <%= camp.name %>
+    <h3>
 
-        </title>
+        Name of camp: <%= camp.name %> 
 
-    </head>
+    </h3>
 
-    <body>
+    <h3>
 
-        <h1>
+        Location of camp: <%= camp.location %> 
 
-            <%= camp.name %>            
+    </h3>
 
-        </h1>
+    <form action="/campgrounds/<%=camp._id%>?_method=delete" method="post">
 
-        <a href='/campgrounds'>
+        <button>
 
-            View all campgrounds
+            Delete
 
-        </a>
+        </button>
 
-        <h3>
+    </form>
 
-            Name of camp: <%= camp.name %> 
+    <a href='/campgrounds/<%=camp._id%>/edit'>
 
-        </h3>
+        Edit Campground
 
-        <h3>
-
-            Location of camp: <%= camp.location %> 
-
-        </h3>
-
-        <form action="/campgrounds/<%=camp._id%>?_method=delete" method="post">
-
-            <button>
-
-                Delete
-
-            </button>
-
-        </form>
-
-        <a href='/campgrounds/<%=camp._id%>/edit'>
-
-            Edit Campground
-
-        </a>
-
-    </body>
-
-</html>
+    </a>

@@ -1,67 +1,43 @@
-<!DOCTYPE html>
+<% layout('layouts/boilerplate') %>
 
-<html>
+    <h2>
 
-    <head>
+        Edit <%= camp.name%>
 
-        <meta charset = 'UTF-8' />
+    </h2>
 
-        <meta name = 'viewport' content = 'width = device-width, initial-scale = 1.0' />
+    <form action='/campgrounds/<%=camp._id%>/?_method=put' method="post">
 
-        <link rel = 'icon' type = 'image/x-icon' href = '' >
+        <label for="name">
 
-        <title>
+            Name of campground: 
 
-            Edit <%= camp.name%>
+        </label>
 
-        </title>
+        <input type="text" placeholder="Enter name" id="name" name="campground[name]" value = "<%=camp.name%>">
 
-    </head>
+        <br>
 
-    <body>
+        <label for="location">
 
-        <h2>
+            Location of campground: 
 
-            Edit <%= camp.name%>
+        </label>
 
-        </h2>
+        <input type="text" placeholder="Enter location" id="location" name="campground[location]" value = "<%=camp.location%>">
 
-        <form action='/campgrounds/<%=camp._id%>/?_method=put' method="post">
+        <br>
 
-            <label for="name">
+        <button>
 
-                Name of campground: 
+            Submit
 
-            </label>
+        </button>
 
-            <input type="text" placeholder="Enter name" id="name" name="campground[name]" value = "<%=camp.name%>">
+    </form>
 
-            <br>
+    <a href='/campgrounds'>
 
-            <label for="location">
+        Cancel
 
-                Location of campground: 
-
-            </label>
-
-            <input type="text" placeholder="Enter location" id="location" name="campground[location]" value = "<%=camp.location%>">
-
-            <br>
-
-            <button>
-
-                Submit
-
-            </button>
-
-        </form>
-
-        <a href='/campgrounds'>
-
-            Cancel
-
-        </a>
-
-    </body>
-
-</html>
+    </a>
