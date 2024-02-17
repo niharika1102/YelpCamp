@@ -14,15 +14,29 @@
 
     <h3>
 
-        Name of camp: <%= camp.name %> 
+        Name: <%= camp.name %> 
 
     </h3>
 
     <h3>
 
-        Location of camp: <%= camp.location %> 
+        Location: <%= camp.location %> 
 
     </h3>
+
+    <img src="<%= camp.image %>" alt="">
+
+    <p>
+
+        <%= camp.description %>
+
+    </p>
+
+    <span>
+
+        Price: <%= camp.price %>
+
+    </span>
 
     <form action="/campgrounds/<%=camp._id%>?_method=delete" method="post">
 
