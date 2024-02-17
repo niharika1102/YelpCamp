@@ -12,20 +12,37 @@
 
     </a>
 
-    <ul>
+    <% for (let camp of campgrounds) { %>
 
-        <% for (let camp of campgrounds) { %>
-            <li>
+        <div class="card" mb-3>
 
-                <a href="/campgrounds/<%= camp._id %>">
-                    <%= camp.name %> 
-                </a>
-                <br>
-                <%= camp.location%>
-                <br>
-                <br>
+            <div class="row">
 
-            </li>
-        <% } %>
+                <!-- Takes up 1/4th of the space. Talking about the image here -->
+                <div class="col-md-4">
 
-    </ul>
+                    <img class="img-fluid" src="<%=camp.image%>" alt="">
+
+                </div>
+
+                <!-- Takes up the leftover 2/3rd of the space -->
+                <div class="col-md-8">
+
+                    <div class="card-body">
+
+                        <h5 class="card-title"><%= camp.name %></h5>
+                        <p class="card-text"><%= camp.description%></p>
+                        <p class="card-text">
+                            <small class="text-muted"><%=camp.location%></small>
+                        </p>
+                        <p class="card-text">Rs. <%=camp.price%></p>
+                        <a href="campgrounds/<%=camp._id%>" class="btn btn-primary">View <%= camp.name %></a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    <% } %>
