@@ -48,7 +48,7 @@ app.get('/campgrounds/new', (req, res) => {
 app.post('/campgrounds', async (req, res) => {
     const camp = new Campground(req.body.campground);
     await camp.save();
-    res.redirect('/campgrounds');
+    res.redirect(`/campgrounds/${camp._id}`);
 })
 
 //details of each campground
@@ -67,7 +67,7 @@ app.get('/campgrounds/:id/edit', async (req, res) => {
 app.put('/campgrounds/:id', async(req, res) => {
     const {id} = req.params;
     const camp = await Campground.findByIdAndUpdate(id, {...req.body.campground});        //...req.body.campground is used to use the updated data and save it into the database
-    res.redirect('/campgrounds');
+    res.redirect(`/campgrounds/${camp._id}`);
 })
 
 //Delete a campground
