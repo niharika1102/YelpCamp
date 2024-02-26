@@ -8,7 +8,7 @@
 
             <!-- Adding Form Here -->
 
-            <form action='/campgrounds' method="post" class="d-inline">
+            <form action='/campgrounds' method="post" class="d-inline validated-form" novalidate>
 
                 <div class="mb-3">
 
@@ -18,7 +18,13 @@
             
                     </label>
             
-                    <input class="form-control" type="text" placeholder="Enter name" id="name" name="campground[name]">
+                    <input class="form-control" type="text" placeholder="Enter name" id="name" name="campground[name]" required>
+
+                    <div class="valid-feedback">
+
+                        Looks good!
+                      
+                    </div>
 
                 </div>
 
@@ -30,7 +36,13 @@
             
                     </label>
             
-                    <input class="form-control" type="text" placeholder="Enter location" id="location" name="campground[location]">
+                    <input class="form-control" type="text" placeholder="Enter location" id="location" name="campground[location]" required>
+
+                    <div class="valid-feedback">
+
+                        Looks good!
+                      
+                    </div>                    
 
                 </div>
 
@@ -42,16 +54,33 @@
             
                     </label>
             
-                    <input class="form-control" type="text" placeholder="Enter image URL" id="image" name="campground[image]">
+                    <input class="form-control" type="text" placeholder="Enter image URL" id="image" name="campground[image]" required>
+
+                    <div class="valid-feedback">
+
+                        Looks good!
+                      
+                    </div>
 
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="price">Campground Price</label>
                     <div class="input-group">
-                        <span class="input-group-text" id="price-label">Rs.</span>
-                        <input type="text" class="form-control" id="price" placeholder="0" aria-label="price"
-                            aria-describedby="price-label" name="campground[price]">
+
+                        <span class="input-group-text" id="price-label">
+                            
+                            Rs.
+                        
+                        </span>
+                        <input type="text" class="form-control" id="price" placeholder="0" aria-label="price" aria-describedby="price-label" name="campground[price]" required>
+
+                        <div class="valid-feedback">
+
+                            Looks good!
+                          
+                        </div>
+
                     </div>
                 </div>
 
@@ -63,7 +92,13 @@
             
                     </label>
             
-                    <textarea class="form-control" type="text" placeholder="Enter description" id="description" name="campground[description]"></textarea>
+                    <textarea class="form-control" type="text" placeholder="Enter description" id="description" name="campground[description]" required></textarea>
+
+                    <div class="valid-feedback">
+
+                        Looks good!
+                      
+                    </div>
 
                 </div>
 
@@ -92,3 +127,5 @@
         </div>
 
     </div>
+
+    
