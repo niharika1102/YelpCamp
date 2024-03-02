@@ -8,6 +8,7 @@ const ejsMate = require('ejs-mate');
 
 //Utils call
 const catchAsync = require('./utils/CatchAsync');
+const ExpressError = require('./utils/ExpressError');
 
 //Schema calling
 const Campground = require('./models/campground');
@@ -49,6 +50,7 @@ app.get('/campgrounds/new', (req, res) => {
 
 //Saving the campground to database
 app.post('/campgrounds', catchAsync(async (req, res, next) => {
+    if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
     const camp = new Campground(req.body.campground);
     await camp.save();
     res.redirect(`/campgrounds/${camp._id}`);
@@ -80,9 +82,15 @@ app.delete('/campgrounds/:id', catchAsync(async(req, res) => {
     res.redirect('/campgrounds');
 }));
 
+//404
+app.all('*', (req, res, next) => {      
+    next(new ExpressError('Page Not Found', 404));
+})
+
 //Custom error handler
 app.use((err, req, res, next) => {
-    res.send("We have an error here!!");
+    const {statusCode = 500, message = 'Something went wrong'} = err;
+    res.status(statusCode).send(message);
 })
 
 app.listen(3000, () => {
