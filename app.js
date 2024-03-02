@@ -6,6 +6,9 @@ const path = require('path');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 
+//Utils call
+const catchAsync = require('./utils/CatchAsync');
+
 //Schema calling
 const Campground = require('./models/campground');
 
@@ -45,38 +48,42 @@ app.get('/campgrounds/new', (req, res) => {
 })
 
 //Saving the campground to database
-app.post('/campgrounds', async (req, res) => {
+app.post('/campgrounds', catchAsync(async (req, res, next) => {
     const camp = new Campground(req.body.campground);
     await camp.save();
     res.redirect(`/campgrounds/${camp._id}`);
-})
+}));
 
 //details of each campground
-app.get('/campgrounds/:id', async (req, res) => {
+app.get('/campgrounds/:id', catchAsync(async (req, res) => {
     const camp = await Campground.findById(req.params.id)
     res.render('campgrounds/show', { camp });
-});
+}));
 
 //Get form to update
-app.get('/campgrounds/:id/edit', async (req, res) => {
+app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
     const camp = await Campground.findById(req.params.id)
     res.render('campgrounds/edit', {camp});
-})
+}));
 
 //Put request to update campground
-app.put('/campgrounds/:id', async(req, res) => {
+app.put('/campgrounds/:id', catchAsync(async(req, res) => {
     const {id} = req.params;
     const camp = await Campground.findByIdAndUpdate(id, {...req.body.campground});        //...req.body.campground is used to use the updated data and save it into the database
     res.redirect(`/campgrounds/${camp._id}`);
-})
+}));
 
 //Delete a campground
-app.delete('/campgrounds/:id', async(req, res) => {
+app.delete('/campgrounds/:id', catchAsync(async(req, res) => {
     const {id} = req.params;
     await Campground.findByIdAndDelete(id);
     res.redirect('/campgrounds');
-})
+}));
 
+//Custom error handler
+app.use((err, req, res, next) => {
+    res.send("We have an error here!!");
+})
 
 app.listen(3000, () => {
     console.log("Listening to you on 3000!!");
