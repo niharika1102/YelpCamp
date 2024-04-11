@@ -85,7 +85,7 @@ app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
 app.put('/campgrounds/:id', validateCampground, catchAsync(async(req, res) => {
     const {id} = req.params;
     const camp = await Campground.findByIdAndUpdate(id, {...req.body.campground});        //...req.body.campground is used to use the updated data and save it into the database
-    res.redirect(`/campgrounds/${camp._id}`);
+    res.redirect(`/campgrounds/${camp?._id}`);
 }));
 
 //Delete a campground
