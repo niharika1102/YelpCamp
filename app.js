@@ -13,6 +13,7 @@ const ExpressError = require('./utils/ExpressError');
 //Schema calling
 const Campground = require('./models/campground');
 const {CampgroundSchema} = require('./schemas.js');
+const Review = require('./models/review');
 
 //Mongoose setup
 mongoose.connect('mongodb://localhost:27017/yelpCamp')
@@ -93,6 +94,17 @@ app.delete('/campgrounds/:id', catchAsync(async(req, res) => {
     const {id} = req.params;
     await Campground.findByIdAndDelete(id);
     res.redirect('/campgrounds');
+}));
+
+//Posting a review
+app.post('/campgrounds/:id/reviews', catchAsync(async(req, res) => {
+    const {id} = req.params;
+    const campground = await Campground.findById(id);
+    const review = new Review(req.body.review);
+    campground?.reviews.push(review._id);
+    await review.save();    
+    await campground?.save();
+    res.redirect(`/campgrounds/${id}`);
 }));
 
 //404
