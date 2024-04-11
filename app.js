@@ -12,7 +12,7 @@ const ExpressError = require('./utils/ExpressError');
 
 //Schema calling
 const Campground = require('./models/campground');
-const {CampgroundSchema} = require('./schemas.js');
+const {CampgroundSchema, ReviewSchema} = require('./schemas.js');
 const Review = require('./models/review');
 
 //Mongoose setup
@@ -34,9 +34,22 @@ app.use(express.static('assets'));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 
-//Server side validation middleware
+//Server side validation middleware - campground
 const validateCampground = (req, res, next) => {
     const {error} = CampgroundSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(', ');
+        throw new ExpressError(msg, 400);
+    }
+    else {
+        next();
+    }
+    console.log(error);
+}
+
+//Server side validation - review
+const validateReview = (req, res, next) => {
+    const {error} = ReviewSchema.validate(req.body);
     if (error) {
         const msg = error.details.map(el => el.message).join(', ');
         throw new ExpressError(msg, 400);
@@ -97,7 +110,7 @@ app.delete('/campgrounds/:id', catchAsync(async(req, res) => {
 }));
 
 //Posting a review
-app.post('/campgrounds/:id/reviews', catchAsync(async(req, res) => {
+app.post('/campgrounds/:id/reviews', validateReview, catchAsync(async(req, res) => {
     const {id} = req.params;
     const campground = await Campground.findById(id);
     const review = new Review(req.body.review);
