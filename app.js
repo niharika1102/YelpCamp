@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
+const session = require('express-session');
 
 //Router calls
 const campgrounds = require('./routes/campground');
@@ -20,13 +21,26 @@ const Review = require('./models/review');
 const review = require('./models/review');
 
 //Mongoose setup
-mongoose.connect('mongodb://localhost:27017/yelpCamp')
-    .then(() => {
-        console.log("Database successfully connected!!");
-    })
-    .catch(e => {
-        console.log("Error in database connection: " + e);
-    });
+// mongoose.connect('mongodb://localhost:27017/yelpCamp')
+//     .then(() => {
+//         console.log("Database successfully connected!!");
+//     })
+//     .catch(e => {
+//         console.log("Error in database connection: " + e);
+//     });
+
+mongoose.connect('mongodb://localhost:27017/yelpCamp', {
+        // useNewUrlParser: true,
+        // useCreateIndex: true,
+        // useUnifiedTopology: true,
+        // useFindAndModify: false
+});
+    
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "Error in database connection: "));
+db.once("open", () => {
+    console.log("Database successfully connected!!");
+});
 
 //ejs setup
 app.engine('ejs', ejsMate);
@@ -38,6 +52,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Middleware setup
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
+
+//Session setup
+const sessionConfig = {
+    secret: 'thisshouldbeabettersecret!',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,      //prevents the cookie to be access from the client side in any case that may exist
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+app.use(session(sessionConfig));
 
 //Routes
 app.use('/campgrounds', campgrounds);   //campground
