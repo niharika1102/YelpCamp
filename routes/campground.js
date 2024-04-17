@@ -7,7 +7,7 @@ const ExpressError = require('../utils/ExpressError');
 
 //Schema calling
 const Campground = require('../models/campground');
-const {CampgroundSchema, ReviewSchema} = require('../schemas.js');
+const {CampgroundSchema} = require('../schemas.js');
 
 //Server side validation middleware - campground
 const validateCampground = (req, res, next) => {
@@ -43,14 +43,22 @@ router.post('/', validateCampground, catchAsync(async (req, res, next) => {
 }));
 
 //details of each campground
-router.get('/:id', catchAsync(async (req, res) => {
+router.get('/:id', catchAsync(async (req, res,) => {
     const camp = await Campground.findById(req.params.id).populate('reviews');
-    res.render('campgrounds/show', { camp, msg: req.flash('success')});
+    if (!camp) {
+        req.flash('error', 'Cannot find that campground!');
+        return res.redirect('/campgrounds');
+    }
+    res.render('campgrounds/show', { camp });
 }));
 
 //Get form to update
 router.get('/:id/edit', catchAsync(async (req, res) => {
-    const camp = await Campground.findById(req.params.id)
+    const camp = await Campground.findById(req.params.id);
+    if (!camp) {
+        req.flash('error', 'Cannot find that campground!');
+        return res.redirect('/campgrounds');
+    }
     res.render('campgrounds/edit', {camp});
 }));
 
