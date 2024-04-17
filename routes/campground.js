@@ -38,13 +38,14 @@ router.post('/', validateCampground, catchAsync(async (req, res, next) => {
     // if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
     const camp = new Campground(req.body.campground);
     await camp.save();
+    req.flash('success', "New campground created!!");
     res.redirect(`/campgrounds/${camp._id}`);
 }));
 
 //details of each campground
 router.get('/:id', catchAsync(async (req, res) => {
     const camp = await Campground.findById(req.params.id).populate('reviews');
-    res.render('campgrounds/show', { camp });
+    res.render('campgrounds/show', { camp, msg: req.flash('success')});
 }));
 
 //Get form to update

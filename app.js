@@ -6,6 +6,7 @@ const path = require('path');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 //Router calls
 const campgrounds = require('./routes/campground');
@@ -65,6 +66,14 @@ const sessionConfig = {
     }
 }
 app.use(session(sessionConfig));
+app.use(flash());
+
+//Middleware to handle flash messages
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
 
 //Routes
 app.use('/campgrounds', campgrounds);   //campground
