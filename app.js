@@ -7,6 +7,8 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const localStrategy = require('passport-local');
 
 //Router calls
 const campgrounds = require('./routes/campground');
@@ -20,16 +22,9 @@ const Campground = require('./models/campground');
 const {CampgroundSchema, ReviewSchema} = require('./schemas.js');
 const Review = require('./models/review');
 const review = require('./models/review');
+const User = require('./models/user');
 
 //Mongoose setup
-// mongoose.connect('mongodb://localhost:27017/yelpCamp')
-//     .then(() => {
-//         console.log("Database successfully connected!!");
-//     })
-//     .catch(e => {
-//         console.log("Error in database connection: " + e);
-//     });
-
 mongoose.connect('mongodb://localhost:27017/yelpCamp', {
         // useNewUrlParser: true,
         // useCreateIndex: true,
@@ -75,12 +70,26 @@ app.use((req, res, next) => {
     next();
 })
 
+//Passport setup
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));     //We tell passport to use the authentication method written in the User model.
+passport.serializeUser(User.serializeUser());     //Tells passport how to store user data in session
+passport.deserializeUser(User.deserializeUser());     //Tells passport how to unstore user data in session
+
 //Routes
 app.use('/campgrounds', campgrounds);   //campground
 app.use('/campgrounds/:id/reviews', reviews);    //review
 
 app.get('/', (req, res) => {
     res.render('home');
+})
+
+//Testing new user
+app.get('/fakeUser', async(req, res) => {
+    const user = new User({email: 'neha@gmail.com', username: 'neha1102'});
+    const newUser = await User.register(user, '1102');
+    res.send(newUser);
 })
 
 //404
