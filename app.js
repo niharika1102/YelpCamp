@@ -11,8 +11,9 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 
 //Router calls
-const campgrounds = require('./routes/campground');
-const reviews = require('./routes/review');
+const campgroundRoutes = require('./routes/campground');
+const reviewRoutes = require('./routes/review');
+const userRoutes = require('./routes/users');
 
 //Utils call
 const ExpressError = require('./utils/ExpressError');
@@ -23,6 +24,7 @@ const {CampgroundSchema, ReviewSchema} = require('./schemas.js');
 const Review = require('./models/review');
 const review = require('./models/review');
 const User = require('./models/user');
+const user = require('./models/user');
 
 //Mongoose setup
 mongoose.connect('mongodb://localhost:27017/yelpCamp', {
@@ -78,8 +80,9 @@ passport.serializeUser(User.serializeUser());     //Tells passport how to store 
 passport.deserializeUser(User.deserializeUser());     //Tells passport how to unstore user data in session
 
 //Routes
-app.use('/campgrounds', campgrounds);   //campground
-app.use('/campgrounds/:id/reviews', reviews);    //review
+app.use('/campgrounds', campgroundRoutes);   //campground
+app.use('/campgrounds/:id/reviews', reviewRoutes);    //review
+app.use('/', userRoutes);    //user
 
 app.get('/', (req, res) => {
     res.render('home');
