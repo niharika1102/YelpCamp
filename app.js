@@ -8,7 +8,7 @@ const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
-const localStrategy = require('passport-local');
+const localStrategy = require('passport-local').Strategy;
 
 //Router calls
 const campgrounds = require('./routes/campground');
@@ -83,13 +83,6 @@ app.use('/campgrounds/:id/reviews', reviews);    //review
 
 app.get('/', (req, res) => {
     res.render('home');
-})
-
-//Testing new user
-app.get('/fakeUser', async(req, res) => {
-    const user = new User({email: 'neha@gmail.com', username: 'neha1102'});
-    const newUser = await User.register(user, '1102');
-    res.send(newUser);
 })
 
 //404
