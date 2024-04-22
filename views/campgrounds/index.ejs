@@ -26,9 +26,9 @@
             <!-- Takes up 1/4th of the space. Talking about the image here -->
             <div class="col-md-4">
                 <% if(camp.images.length) { %> 
-                    <img class="img-fluid" src="<%= camp.images[0].url %>" alt="">
+                    <img class="img-fluid" src="<%= camp.images[0].url %>" alt="" crossorigin="anonymous">
                 <% } else {%> 
-                    <img class="img-fluid" src="https://res.cloudinary.com/dwzysltr3/image/upload/v1713797879/YelpCamp/zyfci2ihyciyiroyjnaj.jpg" alt="">
+                    <img class="img-fluid" crossorigin="anonymous" src="https://res.cloudinary.com/dwzysltr3/image/upload/v1713797879/YelpCamp/zyfci2ihyciyiroyjnaj.jpg" alt="">
                 <% } %>
             </div>
 
