@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;       //used as a shorthand for mongoose.Schema
 const Review = require("./review")
 
 const ImageSchema = new Schema ({
-        url: String,
-        filename: String
+    url: String,
+    filename: String
 })
 
 ImageSchema.virtual('thumbnail').get(function() {
