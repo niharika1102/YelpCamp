@@ -23,7 +23,7 @@ const seedDB = async() => {
     await Campground.deleteMany({});
 
     //Looping 100 times
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 500; i++) {
         const random1000 = Math.floor(Math.random() * 1000);    //Getting an integer value from 1 to 1000
         const price = Math.floor(Math.random() * 100) + 1000;
 
