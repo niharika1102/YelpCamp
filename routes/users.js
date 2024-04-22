@@ -13,14 +13,16 @@ const ExpressError = require('../utils/ExpressError');
 const passport = require('passport');
 const { storeReturnTo } = require('../middleware');
 
-router.get('/register', users.renderRegisterForm)
+//grouping routes
+router.route('/register')
+    .get(users.renderRegisterForm)     //form to register user
+    .post(catchAsync(users.registerUser))     //post request to register user
 
-router.post('/register', catchAsync(users.registerUser));
+router.route('/login')
+    .get(users.renderLoginForm)      //form to login user
+    .post(storeReturnTo, passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), users.loginUser)     //post request to login user
 
-router.get('/login', users.renderLoginForm);
-
-router.post('/login', storeReturnTo, passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), users.loginUser);
-
+//logout route    
 router.get('/logout', users.logout);
 
 module.exports = router;
