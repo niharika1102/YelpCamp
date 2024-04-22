@@ -16,6 +16,8 @@ module.exports.createCampground = async (req, res, next) => {
     // if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
     const camp = new Campground(req.body.campground);
     // @ts-ignore
+    camp.images = req.files.map(f => ({url: f.path, filename: f.filename}));
+    // @ts-ignore
     camp.author = req.user._id;
     console.log(camp);
     await camp.save();

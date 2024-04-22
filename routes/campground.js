@@ -15,12 +15,13 @@ const campgrounds = require('../controllers/campgrounds');
 const {isLoggedIn, validateCampground, isAuthor} = require('../middleware');
 
 //Multer calls
-const upload = multer({ dest: 'uploads/' })
+const {storage} = require('../cloudinary/index');
+const upload = multer({storage});
 
 //grouping routes
 router.route('/')
     .get(catchAsync(campgrounds.index))    //index page
-    .post(isLoggedIn, validateCampground, catchAsync(campgrounds.createCampground));    //Saving the campground to database
+    .post(isLoggedIn, upload.array('image'), validateCampground, catchAsync(campgrounds.createCampground));    //Saving the campground to database
 
 //Get form to add new campground
 router.get('/new', isLoggedIn, campgrounds.renderNewForm);
