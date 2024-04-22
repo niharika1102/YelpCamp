@@ -60,7 +60,12 @@ router.get('/:id', catchAsync(async (req, res,) => {
 
 //Get form to update
 router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
-    const camp = await Campground.findById(req.params.id);
+    const {id} = req.params;
+    const camp = await Campground.findById(id);
+    if (!camp.author.equals(req.user._id)) {
+        req.flash('error', "Not authorized to perform this action");
+        return res.redirect(`/campgrounds/${camp?._id}`);
+    }
     if (!camp) {
         req.flash('error', 'Cannot find that campground!');
         return res.redirect('/campgrounds');
@@ -71,7 +76,12 @@ router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
 //Put request to update campground
 router.put('/:id', isLoggedIn, validateCampground, catchAsync(async(req, res) => {
     const {id} = req.params;
-    const camp = await Campground.findByIdAndUpdate(id, {...req.body.campground});        //...req.body.campground is used to use the updated data and save it into the database
+    const camp = await Campground.findById(id);
+    if (!camp.author.equals(req.user._id)) {
+        req.flash('error', "Not authorized to perform this action");
+        return res.redirect(`/campgrounds/${camp?._id}`);
+    }
+    // const camp = await Campground.findByIdAndUpdate(id, {...req.body.campground});        //...req.body.campground is used to use the updated data and save it into the database
     req.flash('success', "Campground updated");
     res.redirect(`/campgrounds/${camp?._id}`);
 }));
