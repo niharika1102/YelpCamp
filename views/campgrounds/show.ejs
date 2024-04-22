@@ -23,7 +23,6 @@
       <% } %>
     </div>
 
-
     <div class="card mb-3">
       <img src="<%= camp.image %>" alt="">
       <div class="card-body">
@@ -49,10 +48,10 @@
     </div>
     <a href='/campgrounds' class="card-link btn btn-info mx-auto mt-3 mb-3">All Campgrounds</a>
   </div>
+
   <div class="col-6">
-  <div id='map'></div>
-  </div>
-  <div class="col-6">
+    <div id='map'></div>
+
     <% if (currentUser) { %>
       <h2 class="mb-3">Review the Campground</h2>
       <div class="card mb-3">
@@ -84,8 +83,9 @@
         </form>
       </div>
     <% } %>
+
     <% for(let review of camp.reviews) {%>
-      <div class="card mb-3">
+      <div class="card mb-3 mt-3">
         <div class="card-body">
           <h5 class="card-subtitle mb-2">By <%=review.author.username%></h5>
           <p class="starability-result" data-rating="<%=review.rating%>">
@@ -109,4 +109,3 @@
 </script>
 
 <script src="/javascripts/showPageMap.js"></script>
-
