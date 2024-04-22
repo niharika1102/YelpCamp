@@ -7,6 +7,7 @@ const User = require('../models/user');
 //Utils call
 const catchAsync = require('../utils/CatchAsync');
 const ExpressError = require('../utils/ExpressError');
+const passport = require('passport');
 
 //Get the registeration form
 router.get('/register', (req, res) => {
@@ -27,5 +28,27 @@ router.post('/register', catchAsync(async(req, res) => {
         res.redirect('register');
     }
 }));
+
+//Login form rendering
+router.get('/login', (req, res) => {
+    res.render('users/login');
+})
+
+//Login form post route
+router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), (req, res) => {
+    req.flash('success', "Welcome back to YelpCamp");
+    res.redirect('/campgrounds');
+})
+
+//Logout
+router.get('/logout', (req, res, next) => {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+        req.flash('success', "Logged out successfully");
+        res.redirect('/campgrounds');
+    });
+});
 
 module.exports = router;
