@@ -7,27 +7,17 @@ const ExpressError = require('../utils/ExpressError');
 
 //Schema calling
 const Campground = require('../models/campground');
-const {CampgroundSchema, ReviewSchema} = require('../schemas.js');
 const Review = require('../models/review');
 
-//Server side validation - review
-const validateReview = (req, res, next) => {
-    const {error} = ReviewSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(', ');
-        throw new ExpressError(msg, 400);
-    }
-    else {
-        next();
-    }
-    console.log(error);
-}
+//Middleware calling
+const {validateReview} = require('../middleware');
 
 //Posting a review
 router.post('/', validateReview, catchAsync(async(req, res) => {
     const {id} = req.params;
     const campground = await Campground.findById(id);
     const review = new Review(req.body.review);
+    // @ts-ignore
     campground?.reviews.push(review._id);
     await review.save();    
     await campground?.save();

@@ -69,6 +69,7 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));     //We tell passport to use the authentication method written in the User model.
+// @ts-ignore
 passport.serializeUser(User.serializeUser());     //Tells passport how to store user data in session
 passport.deserializeUser(User.deserializeUser());     //Tells passport how to unstore user data in session
 
