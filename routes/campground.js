@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer')
 const router = express.Router();
 
 //Utils call
@@ -12,6 +13,9 @@ const campgrounds = require('../controllers/campgrounds');
 
 //Middleware calling
 const {isLoggedIn, validateCampground, isAuthor} = require('../middleware');
+
+//Multer calls
+const upload = multer({ dest: 'uploads/' })
 
 //grouping routes
 router.route('/')

@@ -1,3 +1,8 @@
+//ENV configuration
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 //Package calls
 const express = require('express');
 const app = express();
