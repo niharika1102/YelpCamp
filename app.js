@@ -14,6 +14,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
+const mongoSanitize = require('express-mongo-sanitize');
 
 //Router calls
 const campgroundRoutes = require('./routes/campground');
@@ -51,6 +52,10 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('assets'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(mongoSanitize({
+    replaceWith: '_'
+}))
+
 
 //Middleware setup
 app.use(express.urlencoded({extended:true}));
