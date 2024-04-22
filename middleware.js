@@ -47,13 +47,13 @@ module.exports.isAuthor = async(req, res, next) => {
 }
 
 //Middleware to check if the user is the author of the review
-module.exports.isReviewAuthor = async(req, res, next) => {
-    const {reviewId, id} = req.params;
+module.exports.isReviewAuthor = async (req, res, next) => {
+    const { id, reviewId } = req.params;
     const review = await Review.findById(reviewId);
     // @ts-ignore
     if (!review.author.equals(req.user._id)) {
         req.flash('error', "Not authorized to perform this action");
-        return res.redirect('/campgrounds');
+        return res.redirect(`/campgrounds/${id}`);
     }
     next();
 }
