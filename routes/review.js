@@ -10,7 +10,7 @@ const Campground = require('../models/campground');
 const Review = require('../models/review');
 
 //Middleware calling
-const {validateReview, isLoggedIn} = require('../middleware');
+const {validateReview, isLoggedIn, isReviewAuthor} = require('../middleware');
 
 //Posting a review
 router.post('/', isLoggedIn, validateReview, catchAsync(async(req, res) => {
@@ -28,7 +28,7 @@ router.post('/', isLoggedIn, validateReview, catchAsync(async(req, res) => {
 }));
 
 //Deleting a review
-router.delete('/:reviewId', catchAsync(async(req, res) => {
+router.delete('/:reviewId', isLoggedIn, isReviewAuthor, catchAsync(async(req, res) => {
     const {id, reviewId} = req.params;
     await Campground.findByIdAndUpdate(id, {$pull: {reviews: reviewId}});    //We pull the specific review id from the reviews array in the campground
     await Review.findByIdAndDelete(reviewId);

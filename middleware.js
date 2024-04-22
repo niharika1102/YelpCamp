@@ -1,5 +1,6 @@
 const ExpressError = require('./utils/ExpressError');    //Utils calling
 const Campground = require('./models/campground');      //Model calling
+const Review = require('./models/review');              //Model calling
 const {CampgroundSchema, ReviewSchema} = require('./schemas.js');   //JOI Schema calling
 
 //Middleware to store the returnTo url in the session
@@ -41,6 +42,18 @@ module.exports.isAuthor = async(req, res, next) => {
     if (!camp.author.equals(req.user._id)) {
         req.flash('error', "Not authorized to perform this action");
         return res.redirect(`/campgrounds/${camp?._id}`);
+    }
+    next();
+}
+
+//Middleware to check if the user is the author of the review
+module.exports.isReviewAuthor = async(req, res, next) => {
+    const {reviewId, id} = req.params;
+    const review = await Review.findById(reviewId);
+    // @ts-ignore
+    if (!review.author.equals(req.user._id)) {
+        req.flash('error', "Not authorized to perform this action");
+        return res.redirect('/campgrounds');
     }
     next();
 }
