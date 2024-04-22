@@ -6,10 +6,11 @@
       <img src="<%= camp.image %>" alt="">
       <div class="card-body">
         <h5 class="card-title"><%= camp.name %> </h5>
-        <p class="card-text text-muted"><%= camp.location %> </p>
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item"><%= camp.description %></li>
+        <li class="list-group-item text-muted"><%= camp.location %></li>
+        <li class="list-group-item">Suggested by <%= camp.author.username %></li>
         <li class="list-group-item">Rs. <%= camp.price %></li>
       </ul>
       <div class="card-body">
