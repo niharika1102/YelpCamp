@@ -65,19 +65,20 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
-//Middleware to handle flash messages
-app.use((req, res, next) => {
-    res.locals.success = req.flash('success');
-    res.locals.error = req.flash('error');
-    next();
-})
-
 //Passport setup
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));     //We tell passport to use the authentication method written in the User model.
 passport.serializeUser(User.serializeUser());     //Tells passport how to store user data in session
 passport.deserializeUser(User.deserializeUser());     //Tells passport how to unstore user data in session
+
+//Middleware to access objects globally
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
 
 //Routes
 app.use('/campgrounds', campgroundRoutes);   //campground
