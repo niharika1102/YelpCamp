@@ -1,7 +1,6 @@
 # YelpCamp
 
 YelpCamp is a website where users can create and review campgrounds. To review or create a campground, you must have an account.
-
 This project was created using Node.js, Express, MongoDB, and Bootstrap. Passport.js was used to handle authentication.
 
 ## Features
@@ -10,12 +9,15 @@ This project was created using Node.js, Express, MongoDB, and Bootstrap. Passpor
 * User profiles include more information on the user (full name, email, phone, join date), their campgrounds, and the option to edit their profile or delete their account
 * Search campground by name or location
 * Sort campgrounds by highest rating, most reviewed, lowest price, or highest price
+
 ## Run it locally
-Install mongodb
-Create a cloudinary account to get an API key and secret code
+1. Install mongodb
+2. Create a cloudinary account to get an API key and secret code
+```
 git clone https://github.com/leovenom/YelpCamp.git
 cd YelpCamp
 npm install
+```
 ## Built With
 Node.js - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
 express - Fast, unopinionated, minimalist web framework for Node.js
