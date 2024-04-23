@@ -24,6 +24,7 @@ npm install
 3. [MongoDB](https://www.mongodb.com/) - The database for modern applications
 4. [Mongoose](https://mongoosejs.com/) - Elegant MongoDB object modeling for Node.js
 5. [ejs](https://ejs.co/) - Embedded JavaScript templating
+
 Create a .env file (or just export manually in the terminal) in the root of the project and add the following:
 
 DATABASEURL='<url>'
