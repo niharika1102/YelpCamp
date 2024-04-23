@@ -19,11 +19,11 @@ cd YelpCamp
 npm install
 ```
 ## Built With
-Node.js - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
-express - Fast, unopinionated, minimalist web framework for Node.js
-MongoDB - The database for modern applications
-Mongoose - Elegant MongoDB object modeling for Node.js
-ejs - Embedded JavaScript templating
+1. [Node.js](https://nodejs.org/) - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+2. [Express](https://expressjs.com//) - Fast, unopinionated, minimalist web framework for Node.js
+3. [MongoDB](https://www.mongodb.com/) - The database for modern applications
+4. [Mongoose](https://mongoosejs.com/) - Elegant MongoDB object modeling for Node.js
+5. [ejs](https://ejs.co/) - Embedded JavaScript templating
 Create a .env file (or just export manually in the terminal) in the root of the project and add the following:
 
 DATABASEURL='<url>'
