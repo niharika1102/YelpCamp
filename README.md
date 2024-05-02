@@ -21,11 +21,13 @@ cd YelpCamp
 npm install
 ```
 ## Built With
-1. [Node.js](https://nodejs.org/) - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
-2. [Express](https://expressjs.com//) - Fast, unopinionated, minimalist web framework for Node.js
-3. [MongoDB](https://www.mongodb.com/) - The database for modern applications
-4. [Mongoose](https://mongoosejs.com/) - Elegant MongoDB object modeling for Node.js
-5. [ejs](https://ejs.co/) - Embedded JavaScript templating
+| Icon | Name | Description |
+| --- | --- | --- |
+|![Node.js](https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg)|Node.js|Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.|
+|![Express.js](https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg)|Express.js|Fast, unopinionated, minimalist web framework for Node.js|
+|![Mongo DB](https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg)|Mongo DB|The database for modern applications|
+|![Mongoose](https://raw.githubusercontent.com/devicons/devicon/master/icons/mongoose/mongoose-original.svg)|Mongo DB|Elegant MongoDB object modeling for Node.js|
+|![EJS](https://raw.githubusercontent.com/devicons/devicon/master/icons/ejs/ejs-original.svg)|EJS|Embedded JavaScript templating|
 
 Create a .env file (or just export manually in the terminal) in the root of the project and add the following:
 
