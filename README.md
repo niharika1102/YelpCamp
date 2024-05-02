@@ -27,7 +27,7 @@ npm install
 |![Express.js](https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg)|Express.js|Fast, unopinionated, minimalist web framework for Node.js|
 |![Mongo DB](https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg)|Mongo DB|The database for modern applications|
 |![Mongoose](https://raw.githubusercontent.com/devicons/devicon/master/icons/mongoose/mongoose-original.svg)|Mongo DB|Elegant MongoDB object modeling for Node.js|
-|![EJS]([https://raw.githubusercontent.com/devicons/devicon/master/icons/ejs/ejs-original.svg](https://www.svgrepo.com/show/373574/ejs.svg))|EJS|Embedded JavaScript templating|
+|![EJS](https://www.svgrepo.com/show/373574/ejs.svg)|EJS|Embedded JavaScript templating|
 
 Create a .env file (or just export manually in the terminal) in the root of the project and add the following:
 
