@@ -26,7 +26,7 @@ npm install
 |Node.js|Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.|
 |Express.js|Fast, unopinionated, minimalist web framework for Node.js|
 |Mongo DB|The database for modern applications|
-|Mongo DB|Elegant MongoDB object modeling for Node.js|
+|Mongoose|Elegant MongoDB object modeling for Node.js|
 |EJS|Embedded JavaScript templating|
 
 Create a .env file (or just export manually in the terminal) in the root of the project and add the following:
